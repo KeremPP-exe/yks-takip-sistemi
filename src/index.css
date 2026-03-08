@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #f8fafc; /* Slate 50 */
+    --foreground: #0f172a; /* Slate 900 */
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+    --border: #e2e8f0;
+  }
+
+  .dark {
+    --background: #020617; /* Slate 950 */
+    --foreground: #f8fafc; /* Slate 50 */
+    --card: #0f172a; /* Slate 900 */
+    --card-foreground: #f8fafc;
+    --border: #1e293b;
+  }
+}
+
+body {
+  @apply bg-background text-foreground transition-colors duration-300 antialiased;
+}

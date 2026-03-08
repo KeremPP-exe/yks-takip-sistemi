@@ -2,6 +2,7 @@ import { type ReactNode, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 import { AnimatePresence, motion } from "framer-motion";
+import { CookieBanner } from "./CookieBanner";
 
 interface LayoutProps {
     children: ReactNode;
@@ -42,12 +43,14 @@ export function Layout({ children }: LayoutProps) {
 
             <div className="flex-1 flex flex-col h-screen overflow-hidden">
                 <Header toggleMobileNav={toggleMobileNav} />
-                <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 scroll-smooth w-full">
+                <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 scroll-smooth w-full relative">
                     <div className="mx-auto max-w-7xl animate-in fade-in slide-in-from-bottom-4 duration-500">
                         {children}
                     </div>
                 </main>
             </div>
+
+            <CookieBanner />
         </div>
     );
 }

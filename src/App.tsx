@@ -8,6 +8,7 @@ import History from "./pages/History";
 import Settings from "./pages/Settings";
 import Calendar from "./pages/Calendar";
 import CookiePolicy from "./pages/CookiePolicy";
+import UserGuide from "./pages/UserGuide";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/cookie-policy" element={<CookiePolicy />} />
+              <Route path="/kullanim-kilavuzu" element={<UserGuide />} />
             </Routes>
           </Layout>
         </Router>

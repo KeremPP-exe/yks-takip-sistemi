@@ -7,6 +7,7 @@ import AddTrial from "./pages/AddTrial";
 import History from "./pages/History";
 import Settings from "./pages/Settings";
 import Calendar from "./pages/Calendar";
+import CookiePolicy from "./pages/CookiePolicy";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path="/history" element={<History />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/cookie-policy" element={<CookiePolicy />} />
             </Routes>
           </Layout>
         </Router>

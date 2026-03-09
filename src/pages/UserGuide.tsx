@@ -1,7 +1,9 @@
 import { BookOpen, Calculator, Calendar, Smartphone } from "lucide-react";
 import { cn } from "../lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export default function UserGuide() {
+    const navigate = useNavigate();
     return (
         <div className="max-w-4xl mx-auto space-y-8 pb-12 animate-in fade-in duration-500">
             <div className="text-center space-y-4">
@@ -75,7 +77,10 @@ export default function UserGuide() {
                         Sistemimizdeki her özellik, senin en yüksek potansiyele ulaşman için tasarlandı. Hadi, bugün yeni bir deneme girerek yolculuğuna başla!
                     </p>
                     <div className="flex justify-center pt-2">
-                        <button className="px-8 py-3.5 bg-white text-primary-600 rounded-2xl font-bold shadow-xl transition-all hover:scale-105 active:scale-95">
+                        <button
+                            onClick={() => navigate("/add")}
+                            className="px-8 py-3.5 bg-white text-primary-600 rounded-2xl font-bold shadow-xl transition-all hover:scale-105 active:scale-95"
+                        >
                             Hemen Başlayalım
                         </button>
                     </div>

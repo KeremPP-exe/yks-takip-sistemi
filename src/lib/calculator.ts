@@ -35,49 +35,59 @@ export function calculateYksScores(tytNet: any, aytNet: any, obp: number) {
 
 export function estimateRank(score: number, field: "SAY" | "EA" | "SOZ" | "TYT") {
     if (field === "TYT") {
-        if (score >= 480) return "~2.000";
-        if (score >= 450) return "~15.000";
-        if (score >= 420) return "~50.000";
-        if (score >= 380) return "~120.000";
-        if (score >= 340) return "~250.000";
-        if (score >= 300) return "~450.000";
-        if (score >= 250) return "~800.000";
+        if (score >= 495) return "30 - 100";
+        if (score >= 480) return "100 - 500";
+        if (score >= 460) return "500 - 1.500";
+        if (score >= 440) return "1.500 - 5.000";
+        if (score >= 420) return "5.000 - 15.000";
+        if (score >= 400) return "15.000 - 35.000";
+        if (score >= 380) return "35.000 - 70.000";
+        if (score >= 350) return "70.000 - 150.000";
+        if (score >= 320) return "150.000 - 300.000";
+        if (score >= 280) return "300.000 - 600.000";
+        if (score >= 240) return "600.000 - 1.000.000";
         return "1.000.000+";
     }
 
     if (field === "SAY") {
-        if (score >= 545) return "~1.000";
-        if (score >= 530) return "~5.000";
-        if (score >= 510) return "~15.000";
-        if (score >= 490) return "~25.000";
-        if (score >= 470) return "~40.000";
-        if (score >= 450) return "~60.000";
-        if (score >= 420) return "~90.000";
-        if (score >= 380) return "~130.000";
-        if (score >= 330) return "~200.000";
-        if (score >= 280) return "~350.000";
-        return "400.000+";
+        if (score >= 550) return "1 - 100";
+        if (score >= 540) return "100 - 500";
+        if (score >= 530) return "500 - 1.500";
+        if (score >= 515) return "1.500 - 5.000";
+        if (score >= 500) return "5.000 - 12.000";
+        if (score >= 485) return "12.000 - 25.000";
+        if (score >= 465) return "25.000 - 50.000";
+        if (score >= 440) return "50.000 - 85.000";
+        if (score >= 415) return "85.000 - 130.000";
+        if (score >= 380) return "130.000 - 200.000";
+        if (score >= 330) return "200.000 - 350.000";
+        if (score >= 280) return "350.000 - 500.000";
+        return "500.000+";
     } else if (field === "EA") {
-        if (score >= 510) return "~500";
-        if (score >= 490) return "~1.500";
-        if (score >= 465) return "~5.000";
-        if (score >= 440) return "~15.000";
-        if (score >= 415) return "~30.000";
-        if (score >= 390) return "~60.000";
-        if (score >= 360) return "~100.000";
-        if (score >= 320) return "~180.000";
-        if (score >= 280) return "~300.000";
-        return "350.000+";
+        if (score >= 540) return "1 - 100";
+        if (score >= 520) return "100 - 500";
+        if (score >= 500) return "500 - 1.500";
+        if (score >= 480) return "1.500 - 4.000";
+        if (score >= 460) return "4.000 - 10.000";
+        if (score >= 440) return "10.000 - 20.000";
+        if (score >= 420) return "20.000 - 45.000";
+        if (score >= 390) return "45.000 - 80.000";
+        if (score >= 360) return "80.000 - 130.000";
+        if (score >= 320) return "130.000 - 250.000";
+        if (score >= 280) return "250.000 - 450.000";
+        return "450.000+";
     } else {
         // SOZ Ranks
-        if (score >= 500) return "~1.000";
-        if (score >= 470) return "~4.000";
-        if (score >= 440) return "~10.000";
-        if (score >= 410) return "~25.000";
-        if (score >= 380) return "~55.000";
-        if (score >= 350) return "~110.000";
-        if (score >= 310) return "~220.000";
-        if (score >= 270) return "~400.000";
+        if (score >= 530) return "1 - 100";
+        if (score >= 510) return "100 - 500";
+        if (score >= 490) return "500 - 1.500";
+        if (score >= 470) return "1.500 - 4.500";
+        if (score >= 450) return "4.500 - 12.000";
+        if (score >= 430) return "12.000 - 25.000";
+        if (score >= 410) return "25.000 - 50.000";
+        if (score >= 380) return "50.000 - 100.000";
+        if (score >= 340) return "100.000 - 250.000";
+        if (score >= 290) return "250.000 - 500.000";
         return "500.000+";
     }
 }

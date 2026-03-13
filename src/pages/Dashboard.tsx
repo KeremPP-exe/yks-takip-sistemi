@@ -199,7 +199,7 @@ export default function Dashboard() {
                                 />
                                 <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '13px' }} />
                                 <Line type="monotone" dataKey="TYT" stroke="#3b82f6" strokeWidth={3} activeDot={{ r: 6, strokeWidth: 0 }} />
-                                <Line type="monotone" dataKey="AYT" stroke={userField === "SAY" ? "#3b82f6" : "#6366f1"} strokeWidth={3} activeDot={{ r: 6, strokeWidth: 0 }} />
+                                <Line type="monotone" dataKey="AYT" stroke="#a855f7" strokeWidth={3} activeDot={{ r: 6, strokeWidth: 0 }} />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>

@@ -53,3 +53,15 @@ export interface StudyLogModel {
     notes: string;
 }
 export type UserField = "SAY" | "EA";
+
+export interface SubjectItem {
+    id: string; // e.g., "tyt-math-1"
+    name: string; // e.g., "Temel Kavramlar"
+    category: string; // e.g., "TYT Matematik"
+    examType: "TYT" | "AYT";
+    completed: boolean;
+}
+
+export interface ChecklistState {
+    [key: string]: boolean; // mapping of subject id to completion state
+}

@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "../../lib/utils";
-import { LayoutDashboard, History, PlusCircle, Settings, GraduationCap, Calendar as CalendarIcon, X, BookOpen, Calculator } from "lucide-react";
+import { LayoutDashboard, History, PlusCircle, Settings, GraduationCap, Calendar as CalendarIcon, X, BookOpen, Calculator, ListChecks } from "lucide-react";
 import { YksCountdown } from "./YksCountdown";
 
 interface SidebarProps {
@@ -18,6 +18,7 @@ export function Sidebar({ onClose, isMobile }: SidebarProps) {
         { name: "Çalışma Günlüğü", href: "/calendar", icon: CalendarIcon },
         { name: "Ayarlar", href: "/settings", icon: Settings },
         { name: "Sıralama Hesaplama", href: "/siralamam-ne", icon: Calculator },
+        { name: "Konu Takibi", href: "/konu-takibi", icon: ListChecks },
         { name: "Nasıl Kullanılır", href: "/kullanim-kilavuzu", icon: BookOpen },
     ];
 

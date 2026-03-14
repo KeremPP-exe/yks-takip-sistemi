@@ -10,6 +10,7 @@ import Calendar from "./pages/Calendar";
 import CookiePolicy from "./pages/CookiePolicy";
 import UserGuide from "./pages/UserGuide";
 import RankCalculator from "./pages/RankCalculator";
+import Checklist from "./pages/Checklist";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/cookie-policy" element={<CookiePolicy />} />
               <Route path="/kullanim-kilavuzu" element={<UserGuide />} />
               <Route path="/siralamam-ne" element={<RankCalculator />} />
+              <Route path="/konu-takibi" element={<Checklist />} />
             </Routes>
           </Layout>
         </Router>

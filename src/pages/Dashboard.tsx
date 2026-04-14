@@ -1,8 +1,7 @@
 import { useTrialContext } from "../context/TrialContext";
 import { Link } from "react-router-dom";
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend,
-    PieChart, Pie, Cell
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend
 } from "recharts";
 import { TrendingUp, Award, Target, Activity, PlusCircle, Trophy, BarChart3 } from "lucide-react";
 import { calculateYksScores, estimateRank } from "../lib/calculator";
@@ -10,8 +9,6 @@ import { useCountUp } from "../lib/useCountUp";
 import { TargetAnalysisPanel } from "../components/dashboard/TargetAnalysisPanel";
 import { cn } from "../lib/utils";
 
-
-const COLORS = ['#3b82f6', '#a855f7', '#14b8a6', '#f59e0b', '#ef4444', '#8b5cf6', '#10b981'];
 
 export default function Dashboard() {
     const { trials, obp, targetScores, userField } = useTrialContext();
@@ -59,19 +56,17 @@ export default function Dashboard() {
         TYT: t.tyt.total,
         AYT: t.ayt.total,
         'TYT Türkçe': t.tyt.turkish,
+        'TYT Sosyal': t.tyt.social,
         'TYT Mat': t.tyt.math,
+        'TYT Fen': t.tyt.science,
         'AYT Mat': t.ayt.math,
-        'AYT Fen': t.ayt.physics + t.ayt.chemistry + t.ayt.biology,
-        'AYT Ed-Sos': t.ayt.literature + t.ayt.history + t.ayt.geography,
+        'AYT Fizik': t.ayt.physics,
+        'AYT Kimya': t.ayt.chemistry,
+        'AYT Biyoloji': t.ayt.biology,
+        'AYT Edebiyat': t.ayt.literature,
+        'AYT Tarih': t.ayt.history,
+        'AYT Coğrafya': t.ayt.geography,
     }));
-
-    // Average Composition Data (Pie Chart)
-    const pieDataTyt = [
-        { name: 'Türkçe', value: Number((trials.reduce((sum, t) => sum + t.tyt.turkish, 0) / trials.length).toFixed(2)) },
-        { name: 'Sosyal', value: Number((trials.reduce((sum, t) => sum + t.tyt.social, 0) / trials.length).toFixed(2)) },
-        { name: 'Matematik', value: Number((trials.reduce((sum, t) => sum + t.tyt.math, 0) / trials.length).toFixed(2)) },
-        { name: 'Fen', value: Number((trials.reduce((sum, t) => sum + t.tyt.science, 0) / trials.length).toFixed(2)) },
-    ];
 
     return (
         <div className="space-y-8 pb-12">
@@ -205,35 +200,28 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                {/* Comparison Bar Chart - now Pie Chart */}
+                {/* TYT Subjects Line Chart */}
                 <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm">
                     <div className="mb-6">
-                        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">TYT Ortalama Dağılımı</h3>
-                        <p className="text-sm text-slate-500">Ders bazlı genel ortalamanız</p>
+                        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">TYT Ders Gelişimi</h3>
+                        <p className="text-sm text-slate-500">TYT branş netlerindeki değişiminiz</p>
                     </div>
-                    <div className="h-64 mt-4">
+                    <div className="h-64 mt-4 relative">
                         <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                                <Pie
-                                    data={pieDataTyt}
-                                    cx="50%"
-                                    cy="50%"
-                                    innerRadius={60}
-                                    outerRadius={80}
-                                    paddingAngle={5}
-                                    dataKey="value"
-                                    label={(props: any) => `${props.name} ${((props.percent || 0) * 100).toFixed(0)}%`}
-                                    labelLine={false}
-                                >
-                                    {pieDataTyt.map((_entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                    ))}
-                                </Pie>
+                            <LineChart data={chartData} margin={{ top: 5, right: 10, bottom: 5, left: -20 }}>
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-slate-800" />
+                                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} dy={10} />
+                                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} />
                                 <RechartsTooltip
-                                    formatter={(value: unknown, name: unknown) => [`${value} Net`, String(name)]}
-                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', backgroundColor: 'var(--card)' }}
+                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', backgroundColor: 'var(--card)', color: 'var(--card-foreground)' }}
+                                    itemStyle={{ fontSize: '13px', fontWeight: 500 }}
                                 />
-                            </PieChart>
+                                <Legend iconType="circle" wrapperStyle={{ paddingTop: '15px', fontSize: '11px' }} />
+                                <Line type="monotone" name="Türkçe" dataKey="TYT Türkçe" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                                <Line type="monotone" name="Sosyal" dataKey="TYT Sosyal" stroke="#f59e0b" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                                <Line type="monotone" name="Matematik" dataKey="TYT Mat" stroke="#10b981" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                                <Line type="monotone" name="Fen" dataKey="TYT Fen" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+                            </LineChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
@@ -242,8 +230,8 @@ export default function Dashboard() {
             {/* Subject Line Chart */}
             <div className="bg-card border border-border rounded-2xl p-5 md:p-6 shadow-sm">
                 <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">Önemli Derslerin Gelişimi</h3>
-                    <p className="text-sm text-slate-500">Türkçe ve Matematik netlerindeki değişim</p>
+                    <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">AYT Derslerinin Gelişimi</h3>
+                    <p className="text-sm text-slate-500">Seçili alanınıza ({userField}) ait AYT branş netlerindeki değişim</p>
                 </div>
                 <div className="h-80">
                     <ResponsiveContainer width="100%" height="100%">
@@ -252,16 +240,23 @@ export default function Dashboard() {
                             <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} dy={10} />
                             <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} />
                             <RechartsTooltip
-                                contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', backgroundColor: 'var(--card)' }}
+                                contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', backgroundColor: 'var(--card)', color: 'var(--card-foreground)' }}
+                                itemStyle={{ fontWeight: 500, fontSize: '14px' }}
                             />
                             <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '13px' }} />
-                            <Line type="monotone" name="TYT Türkçe" dataKey="TYT Türkçe" stroke="#14b8a6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                            <Line type="monotone" name="TYT Mat" dataKey="TYT Mat" stroke="#f59e0b" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
-                            <Line type="monotone" name="AYT Mat" dataKey="AYT Mat" stroke="#ef4444" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                            <Line type="monotone" name="AYT Matematik" dataKey="AYT Mat" stroke="#ef4444" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
                             {userField === "SAY" ? (
-                                <Line type="monotone" name="AYT Fen" dataKey="AYT Fen" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                <>
+                                    <Line type="monotone" name="Fizik" dataKey="AYT Fizik" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                    <Line type="monotone" name="Kimya" dataKey="AYT Kimya" stroke="#10b981" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                    <Line type="monotone" name="Biyoloji" dataKey="AYT Biyoloji" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                </>
                             ) : (
-                                <Line type="monotone" name="AYT Ed-Sos" dataKey="AYT Ed-Sos" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                <>
+                                    <Line type="monotone" name="Edebiyat" dataKey="AYT Edebiyat" stroke="#f59e0b" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                    <Line type="monotone" name="Tarih" dataKey="AYT Tarih" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                    <Line type="monotone" name="Coğrafya" dataKey="AYT Coğrafya" stroke="#14b8a6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                                </>
                             )}
                         </LineChart>
                     </ResponsiveContainer>
